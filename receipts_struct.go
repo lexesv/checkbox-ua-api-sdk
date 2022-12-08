@@ -3,41 +3,41 @@ package checkbox
 import "time"
 
 type ReceiptReq struct {
-	Id          string `json:"id"`
-	CashierName string `json:"cashier_name"`
-	Departament string `json:"departament"`
+	Id          string `json:"id,omitempty"`
+	CashierName string `json:"cashier_name,omitempty"`
+	Departament string `json:"departament,omitempty"`
 	Goods       []Good `json:"goods"` // required
 	Delivery    struct {
-		Email  string   `json:"email"`
-		Emails []string `json:"emails"`
-		Phone  string   `json:"phone"`
-	} `json:"delivery"`
-	Discounts         []Discount `json:"discounts"`
-	Payments          []Payment  `json:"payments"`
-	Rounding          bool       `json:"rounding"`
-	Header            string     `json:"header"`
-	Footer            string     `json:"footer"`
-	Barcode           string     `json:"barcode"`
-	OrderId           string     `json:"order_id"`
-	RelatedReceiptId  string     `json:"related_receipt_id"`
-	PreviousReceiptId string     `json:"previous_receipt_id"`
-	TechnicalReturn   bool       `json:"technical_return"`
+		Email  string   `json:"email,omitempty"`
+		Emails []string `json:"emails,omitempty"`
+		Phone  string   `json:"phone,omitempty"`
+	} `json:"delivery,omitempty"`
+	Discounts         []Discount `json:"discounts,omitempty"`
+	Payments          []Payment  `json:"payments,omitempty"`
+	Rounding          bool       `json:"rounding,omitempty"`
+	Header            string     `json:"header,omitempty"`
+	Footer            string     `json:"footer,omitempty"`
+	Barcode           string     `json:"barcode,omitempty"`
+	OrderId           string     `json:"order_id,omitempty"`
+	RelatedReceiptId  string     `json:"related_receipt_id,omitempty"`
+	PreviousReceiptId string     `json:"previous_receipt_id,omitempty"`
+	TechnicalReturn   bool       `json:"technical_return,omitempty"`
 	Context           struct {
-		AdditionalProp1 string `json:"additionalProp1"`
-		AdditionalProp2 string `json:"additionalProp2"`
-		AdditionalProp3 string `json:"additionalProp3"`
-	} `json:"context"`
-	IsPawnshop bool `json:"is_pawnshop"`
+		AdditionalProp1 string `json:"additionalProp1,omitempty"`
+		AdditionalProp2 string `json:"additionalProp2,omitempty"`
+		AdditionalProp3 string `json:"additionalProp3,omitempty"`
+	} `json:"context,omitempty"`
+	IsPawnshop bool `json:"is_pawnshop,omitempty"`
 	Custom     struct {
-		HtmlGlobalHeader    string `json:"html_global_header"`
-		HtmlGlobalFooter    string `json:"html_global_footer"`
-		HtmlBodyStyle       string `json:"html_body_style"`
-		HtmlReceiptStyle    string `json:"html_receipt_style"`
-		HtmlRulerStyle      string `json:"html_ruler_style"`
-		HtmlLightBlockStyle string `json:"html_light_block_style"`
-		TextGlobalHeader    string `json:"text_global_header"`
-		TextGlobalFooter    string `json:"text_global_footer"`
-	} `json:"custom"`
+		HtmlGlobalHeader    string `json:"html_global_header,omitempty"`
+		HtmlGlobalFooter    string `json:"html_global_footer,omitempty"`
+		HtmlBodyStyle       string `json:"html_body_style,omitempty"`
+		HtmlReceiptStyle    string `json:"html_receipt_style,omitempty"`
+		HtmlRulerStyle      string `json:"html_ruler_style,omitempty"`
+		HtmlLightBlockStyle string `json:"html_light_block_style,omitempty"`
+		TextGlobalHeader    string `json:"text_global_header,omitempty"`
+		TextGlobalFooter    string `json:"text_global_footer,omitempty"`
+	} `json:"custom,omitempty"`
 }
 
 type ReceiptResp struct {
