@@ -33,7 +33,7 @@ func (ch *Checkbox) CreateReceipt(AccessToken string, req *ReceiptReq) (resp *Re
 	c := ReqConfig{
 		Method:         "POST",
 		NeedLicenseKey: false,
-		Endpoint:       "/api/v1/receipts/sel",
+		Endpoint:       "/api/v1/receipts/sell",
 		AccessToken:    AccessToken,
 		Request:        req,
 		Response:       resp,
