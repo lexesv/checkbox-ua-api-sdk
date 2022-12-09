@@ -82,11 +82,22 @@ func (ch *Checkbox) SetClientVersion(ClientVersion string) {
 	ch.Conf.ClientVersion = ClientVersion
 }
 
+func (ch *Checkbox) checkStatusCode(code int) bool {
+	for _, v := range ch.SuccessCodes {
+		if v == code {
+			return true
+		}
+	}
+	return false
+}
+
 // request
 // Http запит до сервера API
 // Error status codes:
-// 403 - Not authenticated
-// 422 - Validation Error
+// 401 - Unauthorized (Помилка авторизації. Наприклад: Неприпустимий токен JWT)
+// 403 - Not authenticated (Запрос без авторизації)
+// 422 - Validation Error (У випадку, якщо ваш запит не пройде валідацію формату)
+// 400 - Bad Request (наприклад: Зміну не відкрито / Касир вже працює з даною касою)
 func (ch *Checkbox) request(c ReqConfig) *Error {
 	Error := new(Error)
 	body := new(bytes.Reader)
@@ -132,9 +143,11 @@ func (ch *Checkbox) request(c ReqConfig) *Error {
 		return Error
 	}
 
-	if ch.checkStatusCode(resp.StatusCode) {
-		if c.Response != nil {
-			err = json.Unmarshal(b, c.Response)
+	if ch.checkStatusCode(resp.StatusCode) && c.Response != nil {
+		err = json.Unmarshal(b, c.Response)
+		if err != nil {
+			Error.addMsg(err)
+			return Error
 		}
 	} else {
 		err = json.Unmarshal(b, Error)
@@ -146,13 +159,4 @@ func (ch *Checkbox) request(c ReqConfig) *Error {
 		return Error
 	}
 	return nil
-}
-
-func (ch *Checkbox) checkStatusCode(code int) bool {
-	for _, v := range ch.SuccessCodes {
-		if v == code {
-			return true
-		}
-	}
-	return false
 }
