@@ -93,11 +93,11 @@ type ShiftResp struct {
 			Code            int       `json:"code"`
 			Label           string    `json:"label"`
 			Symbol          string    `json:"symbol"`
-			Rate            int       `json:"rate"`
-			SellSum         int       `json:"sell_sum"`
-			ReturnSum       int       `json:"return_sum"`
-			SalesTurnover   int       `json:"sales_turnover"`
-			ReturnsTurnover int       `json:"returns_turnover"`
+			Rate            float64   `json:"rate"`
+			SellSum         float64   `json:"sell_sum"`
+			ReturnSum       float64   `json:"return_sum"`
+			SalesTurnover   float64   `json:"sales_turnover"`
+			ReturnsTurnover float64   `json:"returns_turnover"`
 			NoVat           bool      `json:"no_vat"`
 			AdvancedCode    string    `json:"advanced_code"`
 			CreatedAt       time.Time `json:"created_at"`
