@@ -146,13 +146,13 @@ func (ch *Checkbox) request(c ReqConfig) *Error {
 	if ch.checkStatusCode(resp.StatusCode) && c.Response != nil {
 		err = json.Unmarshal(b, c.Response)
 		if err != nil {
-			fmt.Println(string(b))
 			Error.addMsg(err)
 			return Error
 		}
 	} else {
 		err = json.Unmarshal(b, Error)
 		if err != nil {
+			fmt.Println(string(b))
 			Error.addMsg(err)
 			return Error
 		}
