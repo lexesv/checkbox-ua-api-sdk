@@ -87,7 +87,8 @@ func (ch *Checkbox) SetClientVersion(ClientVersion string) {
 // Error status codes:
 // 403 - Not authenticated
 // 422 - Validation Error
-func (ch *Checkbox) request(c ReqConfig) (Error *Error) {
+func (ch *Checkbox) request(c ReqConfig) *Error {
+	Error := new(Error)
 	body := new(bytes.Reader)
 	if c.Request != nil {
 		b, err := json.Marshal(c.Request)
