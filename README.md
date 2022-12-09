@@ -1,5 +1,7 @@
 # checkbox-ua-api-sdk
 
+### Golang SDK для роботи з API Checkbox.ua
+
 ### (under development)
 
 Реалізовані деякі базові функції, яких достатньо для відкриття зміни і створення фіскальних чеків.
