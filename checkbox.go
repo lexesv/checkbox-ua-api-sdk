@@ -34,7 +34,7 @@ type ReqConfig struct {
 }
 
 type Error struct {
-	StatusCode int           `json:"statusCode"`
+	StatusCode int           `json:"statusCode,omitempty"`
 	Message    string        `json:"message,omitempty"`
 	Detail     MessageDetail `json:"detail,omitempty"`
 }
@@ -42,9 +42,9 @@ type Error struct {
 // MessageDetail  - У випадку, якщо ваш запит не пройде валідацію формату, ви отримаєте 422 Error:
 // Unprocessable Entity зі змістом наступного вигляду, де буде вказано приблизне розташування та опис помилки:
 type MessageDetail []struct {
-	Loc  []string `json:"loc"`
-	Msg  string   `json:"msg"`
-	Type string   `json:"type"`
+	Loc  []interface{} `json:"loc"`
+	Msg  string        `json:"msg"`
+	Type string        `json:"type"`
 	Ctx  struct {
 		LimitValue int `json:"limit_value"`
 	} `json:"ctx"`
@@ -94,12 +94,13 @@ func (ch *Checkbox) checkStatusCode(code int) bool {
 // request
 // Http запит до сервера API
 // Error status codes:
+// 100 - Помилка виникша при роботі функції
 // 401 - Unauthorized (Помилка авторизації. Наприклад: Неприпустимий токен JWT)
 // 403 - Not authenticated (Запрос без авторизації)
 // 422 - Validation Error (У випадку, якщо ваш запит не пройде валідацію формату)
 // 400 - Bad Request (наприклад: Зміну не відкрито / Касир вже працює з даною касою)
 func (ch *Checkbox) request(c ReqConfig) *Error {
-	Error := new(Error)
+	Error := &Error{StatusCode: 100}
 	body := new(bytes.Reader)
 	if c.Request != nil {
 		b, err := json.Marshal(c.Request)
