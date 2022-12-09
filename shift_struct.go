@@ -210,3 +210,55 @@ type ShiftsResp struct {
 	} `json:"meta"`
 	Results []ShiftResp `json:"results"`
 }
+
+type CloseShiftReq struct {
+	SkipClientNameCheck bool `json:"skip_client_name_check"`
+	Report              struct {
+		Id                          string           `json:"id"`
+		Serial                      int              `json:"serial"`
+		Payments                    []ZReportPayment `json:"payments"`              //required
+		Taxes                       []ZReportTax     `json:"taxes"`                 //required
+		SellReceiptsCount           int              `json:"sell_receipts_count"`   // required
+		ReturnReceiptsCount         int              `json:"return_receipts_count"` //required
+		CashWithdrawalReceiptsCount int              `json:"cash_withdrawal_receipts_count"`
+		LastReceiptId               string           `json:"last_receipt_id"`
+		Initial                     int              `json:"initial"` //required
+		Balance                     int              `json:"balance"` //required
+		SalesRoundUp                int              `json:"sales_round_up"`
+		SalesRoundDown              int              `json:"sales_round_down"`
+		ReturnsRoundUp              int              `json:"returns_round_up"`
+		ReturnsRoundDown            int              `json:"returns_round_down"`
+		DiscountsSum                int              `json:"discounts_sum"`
+		ExtraChargeSum              int              `json:"extra_charge_sum"`
+		CreatedAt                   time.Time        `json:"created_at"`
+	} `json:"report"`
+	FiscalCode string    `json:"fiscal_code"`
+	FiscalDate time.Time `json:"fiscal_date"`
+}
+type ZReportPayment struct {
+	Type                     string `json:"type"` //required
+	Code                     int    `json:"code"`
+	Label                    string `json:"label"`       //required
+	SellSum                  int    `json:"sell_sum"`    //required
+	ReturnSum                int    `json:"return_sum"`  //required
+	ServiceIn                int    `json:"service_in"`  //required
+	ServiceOut               int    `json:"service_out"` //required
+	CashWithdrawal           int    `json:"cash_withdrawal"`
+	CashWithdrawalCommission int    `json:"cash_withdrawal_commission"`
+}
+
+type ZReportTax struct {
+	Code            int       `json:"code"`             //required
+	Label           string    `json:"label"`            //required
+	Symbol          string    `json:"symbol"`           //required
+	Rate            int       `json:"rate"`             //required
+	ExtraRate       int       `json:"extra_rate"`       //required
+	SellSum         int       `json:"sell_sum"`         //required
+	ReturnSum       int       `json:"return_sum"`       //required
+	SalesTurnover   int       `json:"sales_turnover"`   //required
+	ReturnsTurnover int       `json:"returns_turnover"` //required
+	SetupDate       time.Time `json:"setup_date"`       //required
+	Included        bool      `json:"included"`
+	NoVat           bool      `json:"no_vat"`
+	AdvancedCode    string    `json:"advanced_code"`
+}

@@ -25,9 +25,9 @@ type Config struct {
 }
 
 type ReqConfig struct {
-	Method         string
+	Method         string // (GET, POST, DELETE, PUT, etc)
 	NeedLicenseKey bool
-	Endpoint       string
+	Endpoint       string // example: "/api/v1/shifts"
 	AccessToken    string //Bearer <токен авторизації>
 	Request        interface{}
 	Response       interface{}
@@ -57,6 +57,9 @@ func (e *Error) Error() string {
 	return fmt.Sprintf("%d. %s. %#v", e.StatusCode, e.Message, e.Detail)
 }
 
+// New
+//
+// Створення нового обʼєкту Checkbox
 func New(LicenseKey, CashierLogin, CashierPassword, CashierPinCode string) *Checkbox {
 	ch := &Checkbox{
 		SuccessCodes: []int{200, 201, 202, 205},
@@ -91,15 +94,22 @@ func (ch *Checkbox) checkStatusCode(code int) bool {
 	return false
 }
 
-// request
-// Http запит до сервера API
+// Request
+//
+// # Http запит до сервера API
+//
 // Error status codes:
+//
 // 100 - Помилка виникша при роботі функції
+//
 // 401 - Unauthorized (Помилка авторизації. Наприклад: Неприпустимий токен JWT)
+//
 // 403 - Not authenticated (Запрос без авторизації)
+//
 // 422 - Validation Error (У випадку, якщо ваш запит не пройде валідацію формату)
+//
 // 400 - Bad Request (наприклад: Зміну не відкрито / Касир вже працює з даною касою)
-func (ch *Checkbox) request(c ReqConfig) *Error {
+func (ch *Checkbox) Request(c ReqConfig) *Error {
 	Error := &Error{StatusCode: 100}
 	body := new(bytes.Reader)
 	if c.Request != nil {

@@ -2,6 +2,9 @@
 
 ### (under development)
 
+Реалізовані деякі базові функції, яких достатньо для відкриття зміни і створення фіскальних чеків.
+Implemented some basic functions.
+
 Alternative: [Auto generated Checkbox SDK](https://github.com/lexesv/checkbox-ua-api-sdk-autogen)
 
 ### Usage

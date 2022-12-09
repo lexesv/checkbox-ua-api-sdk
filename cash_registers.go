@@ -3,6 +3,7 @@ package checkbox
 import "fmt"
 
 // GetCashRegistersInfo
+//
 // Отримання інформації про пРРО за ключем ліцензії. Необхідно для агенту РРО.
 func (ch *Checkbox) GetCashRegistersInfo() (*CashRegistersInfoResp, *Error) {
 	resp := &CashRegistersInfoResp{}
@@ -13,12 +14,14 @@ func (ch *Checkbox) GetCashRegistersInfo() (*CashRegistersInfoResp, *Error) {
 		Request:        nil,
 		Response:       resp,
 	}
-	err := ch.request(c)
+	err := ch.Request(c)
 	return resp, err
 }
 
 // GetCashRegisters
-// Отримання переліку доступних пРРО
+//
+// # Отримання переліку доступних пРРО
+//
 // InUse - Чи відображати зайняті каси (1 - тільки зайняті, 2 - тільки вільні, 0 - всі)
 func (ch *Checkbox) GetCashRegisters(AccessToken string, InUse int, Limit, Offset int) (*CashRegistersResp, *Error) {
 	resp := &CashRegistersResp{}
@@ -37,11 +40,12 @@ func (ch *Checkbox) GetCashRegisters(AccessToken string, InUse int, Limit, Offse
 		Request:        nil,
 		Response:       resp,
 	}
-	err := ch.request(c)
+	err := ch.Request(c)
 	return resp, err
 }
 
 // GetCashRegister
+//
 // Отримання інформації про пРРО
 func (ch *Checkbox) GetCashRegister(AccessToken string, CashRegisterId string) (*CashRegisterResp, *Error) {
 	resp := &CashRegisterResp{}
@@ -53,6 +57,6 @@ func (ch *Checkbox) GetCashRegister(AccessToken string, CashRegisterId string) (
 		Request:        nil,
 		Response:       resp,
 	}
-	err := ch.request(c)
+	err := ch.Request(c)
 	return resp, err
 }
