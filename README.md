@@ -1,6 +1,8 @@
 # checkbox-ua-api-sdk
 
-## (under development)
+### (under development)
+
+Alternative: [Auto generated Checkbox SDK](https://github.com/lexesv/checkbox-ua-api-sdk-autogen)
 
 ### Usage
 
