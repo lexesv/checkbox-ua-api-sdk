@@ -251,12 +251,12 @@ type ZReportTax struct {
 	Code            int       `json:"code"`             //required
 	Label           string    `json:"label"`            //required
 	Symbol          string    `json:"symbol"`           //required
-	Rate            int       `json:"rate"`             //required
-	ExtraRate       int       `json:"extra_rate"`       //required
-	SellSum         int       `json:"sell_sum"`         //required
-	ReturnSum       int       `json:"return_sum"`       //required
-	SalesTurnover   int       `json:"sales_turnover"`   //required
-	ReturnsTurnover int       `json:"returns_turnover"` //required
+	Rate            float64   `json:"rate"`             //required
+	ExtraRate       float64   `json:"extra_rate"`       //required
+	SellSum         float64   `json:"sell_sum"`         //required
+	ReturnSum       float64   `json:"return_sum"`       //required
+	SalesTurnover   float64   `json:"sales_turnover"`   //required
+	ReturnsTurnover float64   `json:"returns_turnover"` //required
 	SetupDate       time.Time `json:"setup_date"`       //required
 	Included        bool      `json:"included"`
 	NoVat           bool      `json:"no_vat"`
