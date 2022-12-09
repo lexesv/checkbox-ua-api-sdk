@@ -3,12 +3,14 @@ package checkbox
 import (
 	"bytes"
 	"encoding/json"
+	"fmt"
 	"io"
 	"net/http"
 )
 
 type Checkbox struct {
-	Conf Config
+	Conf         Config
+	SuccessCodes []int
 }
 
 type Config struct {
@@ -51,9 +53,14 @@ type MessageDetail []struct {
 func (e *Error) addMsg(err error) {
 	e.Message = err.Error()
 }
+func (e *Error) Error() string {
+	return fmt.Sprintf("%d. %s. %#v", e.StatusCode, e.Message, e.Detail)
+}
 
 func New(LicenseKey, CashierLogin, CashierPassword, CashierPinCode string) *Checkbox {
-	ch := &Checkbox{}
+	ch := &Checkbox{
+		SuccessCodes: []int{200, 201, 202, 205},
+	}
 	ch.Conf.ApiUrl = "https://api.checkbox.ua"
 	ch.Conf.LicenseKey = LicenseKey
 	ch.Conf.CashierLogin = CashierLogin
@@ -77,8 +84,10 @@ func (ch *Checkbox) SetClientVersion(ClientVersion string) {
 
 // request
 // Http запит до сервера API
-func (ch *Checkbox) request(c ReqConfig) *Error {
-	Error := new(Error)
+// Error status codes:
+// 403 - Not authenticated
+// 422 - Validation Error
+func (ch *Checkbox) request(c ReqConfig) (Error *Error) {
 	body := new(bytes.Reader)
 	if c.Request != nil {
 		b, err := json.Marshal(c.Request)
@@ -121,7 +130,8 @@ func (ch *Checkbox) request(c ReqConfig) *Error {
 		Error.addMsg(err)
 		return Error
 	}
-	if resp.StatusCode == 200 || resp.StatusCode == 202 || resp.StatusCode == 201 {
+
+	if ch.checkStatusCode(resp.StatusCode) {
 		if c.Response != nil {
 			err = json.Unmarshal(b, c.Response)
 		}
@@ -131,7 +141,17 @@ func (ch *Checkbox) request(c ReqConfig) *Error {
 			Error.addMsg(err)
 			return Error
 		}
+		Error.StatusCode = resp.StatusCode
 		return Error
 	}
 	return nil
+}
+
+func (ch *Checkbox) checkStatusCode(code int) bool {
+	for _, v := range ch.SuccessCodes {
+		if v == code {
+			return true
+		}
+	}
+	return false
 }

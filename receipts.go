@@ -15,8 +15,8 @@ func (ch *Checkbox) NewSimpleReceipt(Code, Name string, Price, Quantity int, Pay
 	good.Good.Price = Price
 	good.Quantity = Quantity
 	goods = append(goods, good)
-	var payments []Payment
-	payment := Payment{
+	var payments []ReceiptPayment
+	payment := ReceiptPayment{
 		Type:  PayType,
 		Value: PayVal,
 	}
