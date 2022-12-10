@@ -11,7 +11,7 @@ Alternative: [Auto generated Checkbox SDK](https://github.com/lexesv/checkbox-ua
 
 ### Usage
 
-Example:
+Приклад:
 
 ```go
 package main
@@ -34,19 +34,19 @@ func main() {
 		log.Fatal(err)
 	}
 
-	log.Println("[Cashier] AccessToken:", sign.AccessToken)
+	log.Println("AccessToken:", sign.AccessToken)
 
 	profile, err := ChBox.GetCashierProfile(sign.AccessToken)
 	if err != nil {
 		log.Fatal(err)
 	}
-	log.Printf("[Cashier] ID: %s; FullName: %s\n", profile.Id, profile.FullName)
+	log.Printf("ID: %s; FullName: %s\n", profile.Id, profile.FullName)
 
 	rinfo, err := ChBox.GetCashRegistersInfo()
 	if err != nil {
 		log.Fatal(err)
 	}
-	log.Println("[CashRegisters] Has open Shift:", rinfo.HasShift)
+	log.Println("Has open Shift:", rinfo.HasShift)
 
 	shift, err := ChBox.CreateShift(sign.AccessToken)
 	if err != nil {
@@ -55,6 +55,7 @@ func main() {
 	}
 	if shift.Serial > 0 {
 		log.Println("Shift success created")
+		time.Sleep(time.Second * 7)
 	}
 
 	req := ChBox.NewSimpleReceipt("1", "Продаж ПЗ", 10000, 1000, "CARD", 10000)
@@ -64,6 +65,15 @@ func main() {
 	}
 	if receipt.Serial > 0 {
 		log.Println("Receipt success created")
+	}
+
+	time.Sleep(time.Second * 15)
+
+	_, err = ChBox.CloseShift(sign.AccessToken, nil)
+	if err != nil {
+		log.Fatal(err.Error())
+	} else {
+		log.Println("Shift success closed")
 	}
 }
 

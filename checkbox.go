@@ -28,7 +28,7 @@ type ReqConfig struct {
 	Method         string // (GET, POST, DELETE, PUT, etc)
 	NeedLicenseKey bool
 	Endpoint       string // example: "/api/v1/shifts"
-	AccessToken    string //Bearer <токен авторизації>
+	AccessToken    string // Bearer <токен авторизації>
 	Request        interface{}
 	Response       interface{}
 }
@@ -163,7 +163,6 @@ func (ch *Checkbox) Request(c ReqConfig) *Error {
 	} else {
 		err = json.Unmarshal(b, Error)
 		if err != nil {
-			fmt.Println(string(b))
 			Error.addMsg(err)
 			return Error
 		}
