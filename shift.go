@@ -21,8 +21,8 @@ import "fmt"
 // Після того як робочу зміну буде успішно відкрито можна її закрити або створювати чеки.
 //
 // AccessToken: Bearer <токен авторизації>
-func (ch *Checkbox) CreateShift(AccessToken string) (*ShiftResp, *Error) {
-	resp := &ShiftResp{}
+func (ch *Checkbox) CreateShift(AccessToken string) (*Shift, *Error) {
+	resp := &Shift{}
 	c := ReqConfig{
 		Method:         "POST",
 		NeedLicenseKey: true,
@@ -38,8 +38,8 @@ func (ch *Checkbox) CreateShift(AccessToken string) (*ShiftResp, *Error) {
 // Shifts
 //
 // Отримання змін поточного касира
-func (ch *Checkbox) Shifts(AccessToken string, Desc bool, Limit, Offset int) (*ShiftsResp, *Error) {
-	resp := &ShiftsResp{}
+func (ch *Checkbox) Shifts(AccessToken string, Desc bool, Limit, Offset int) (*Shifts, *Error) {
+	resp := &Shifts{}
 	c := ReqConfig{
 		Method:         "GET",
 		NeedLicenseKey: false,
@@ -55,8 +55,8 @@ func (ch *Checkbox) Shifts(AccessToken string, Desc bool, Limit, Offset int) (*S
 // GetShift
 //
 // Отримання інформації про зміну
-func (ch *Checkbox) GetShift(AccessToken, ShiftId string) (*ShiftResp, *Error) {
-	resp := &ShiftResp{}
+func (ch *Checkbox) GetShift(AccessToken, ShiftId string) (*Shift, *Error) {
+	resp := &Shift{}
 	c := ReqConfig{
 		Method:         "GET",
 		NeedLicenseKey: false,
@@ -88,8 +88,8 @@ func (ch *Checkbox) GetShift(AccessToken, ShiftId string) (*ShiftResp, *Error) {
 // # Опціонально Z-Звіт може бути сформований на стороні клієнта та переданий в тілі цього запиту
 //
 // Увага! При формуванні звіту на стороні клієнту перевірка коректності розрахунку оборотів та сум продажу не виконується!
-func (ch *Checkbox) CloseShift(AccessToken string, req *CloseShiftReq) (*ShiftResp, *Error) {
-	resp := &ShiftResp{}
+func (ch *Checkbox) CloseShift(AccessToken string, req *CloseShiftPayload) (*Shift, *Error) {
+	resp := &Shift{}
 	c := ReqConfig{
 		Method:         "POST",
 		NeedLicenseKey: false,

@@ -3,7 +3,7 @@ package checkbox
 import "time"
 
 /*
-CashRegistersInfoResp
+CashRegistersInfo
 "id" - унікальний ідентифікатор каси ПРРО у форматі UUID
 "fiscal_number" - фіскальний номер каси
 "created_at" - дата створення каси
@@ -18,7 +18,7 @@ CashRegistersInfoResp
 "last_report_code" - останній порядковий номер звіта, який не є z-звітом
 "last_z_report_code" - останній порядковий номер z-звіта
 */
-type CashRegistersInfoResp struct {
+type CashRegistersInfo struct {
 	Id             string    `json:"id"`
 	FiscalNumber   string    `json:"fiscal_number"`
 	CreatedAt      time.Time `json:"created_at"`
@@ -35,52 +35,21 @@ type CashRegistersInfoResp struct {
 	} `json:"documents_state"`
 }
 
-type CashRegistersResp struct {
+type CashRegisters struct {
 	Meta struct {
 		Limit  int `json:"limit"`
 		Offset int `json:"offset"`
 	} `json:"meta"`
-	Results []struct {
-		Id           string    `json:"id"`
-		FiscalNumber string    `json:"fiscal_number"`
-		Active       bool      `json:"active"`
-		CreatedAt    time.Time `json:"created_at"`
-		UpdatedAt    time.Time `json:"updated_at"`
-		Shift        ShiftResp `json:"shift"`
-		OfflineMode  bool      `json:"offline_mode"`
-		StayOffline  bool      `json:"stay_offline"`
-		Branch       struct {
-			Id           string `json:"id"`
-			Name         string `json:"name"`
-			Address      string `json:"address"`
-			Organization struct {
-				Id                        string    `json:"id"`
-				Title                     string    `json:"title"`
-				Edrpou                    string    `json:"edrpou"`
-				TaxNumber                 string    `json:"tax_number"`
-				CreatedAt                 time.Time `json:"created_at"`
-				UpdatedAt                 time.Time `json:"updated_at"`
-				SubscriptionExp           string    `json:"subscription_exp"`
-				ConcordLogin              string    `json:"concord_login"`
-				ConcordUid                string    `json:"concord_uid"`
-				ReceiptsRatelimitCount    int       `json:"receipts_ratelimit_count"`
-				ReceiptsRatelimitInterval int       `json:"receipts_ratelimit_interval"`
-				CanSendSms                bool      `json:"can_send_sms"`
-			} `json:"organization"`
-			CreatedAt time.Time `json:"created_at"`
-			UpdatedAt time.Time `json:"updated_at"`
-		} `json:"branch"`
-		Address string `json:"address"`
-	} `json:"results"`
+	Results []CashRegister `json:"results"`
 }
 
-type CashRegisterResp struct {
+type CashRegister struct {
 	Id           string    `json:"id"`
 	FiscalNumber string    `json:"fiscal_number"`
 	Active       bool      `json:"active"`
 	CreatedAt    time.Time `json:"created_at"`
 	UpdatedAt    time.Time `json:"updated_at"`
-	Shift        ShiftResp `json:"shift"`
+	Shift        Shift     `json:"shift"`
 	OfflineMode  bool      `json:"offline_mode"`
 	StayOffline  bool      `json:"stay_offline"`
 	Branch       struct {

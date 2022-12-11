@@ -3,9 +3,9 @@ package checkbox
 // SignIn
 //
 // Авторизація за допомогою логіна і пароля касира
-func (ch *Checkbox) SignIn() (*SignInResp, *Error) {
-	req := &SingInReq{}
-	resp := &SignInResp{}
+func (ch *Checkbox) SignIn() (*SignIn, *Error) {
+	req := &SingInPayload{}
+	resp := &SignIn{}
 	req.Login = ch.Conf.CashierLogin
 	req.Password = ch.Conf.CashierPassword
 	c := ReqConfig{
@@ -22,9 +22,9 @@ func (ch *Checkbox) SignIn() (*SignInResp, *Error) {
 // SignInPinCode
 //
 // Авторизація за допомогою ключа ліцензії каси та PIN кода касира
-func (ch *Checkbox) SignInPinCode() (*SignInResp, *Error) {
-	req := &SingInReq{}
-	resp := &SignInResp{}
+func (ch *Checkbox) SignInPinCode() (*SignIn, *Error) {
+	req := &SingInPayload{}
+	resp := &SignIn{}
 	req.PinCode = ch.Conf.CashierPinCode
 	c := ReqConfig{
 		Method:         "POST",
@@ -56,8 +56,8 @@ func (ch *Checkbox) SignOut(AccessToken string) *Error {
 // GetCashierProfile
 //
 // Отримання інформації про поточного користувача (касира)
-func (ch *Checkbox) GetCashierProfile(AccessToken string) (*CashierProfileResp, *Error) {
-	resp := &CashierProfileResp{}
+func (ch *Checkbox) GetCashierProfile(AccessToken string) (*CashierProfile, *Error) {
+	resp := &CashierProfile{}
 	c := ReqConfig{
 		Method:         "GET",
 		NeedLicenseKey: false,
@@ -73,8 +73,8 @@ func (ch *Checkbox) GetCashierProfile(AccessToken string) (*CashierProfileResp, 
 // GetCashierShift
 //
 // Отримання інформації про активну зміну користувача (касира)
-func (ch *Checkbox) GetCashierShift(AccessToken string) (*ShiftResp, *Error) {
-	resp := &ShiftResp{}
+func (ch *Checkbox) GetCashierShift(AccessToken string) (*Shift, *Error) {
+	resp := &Shift{}
 	c := ReqConfig{
 		Method:         "GET",
 		NeedLicenseKey: false,
@@ -90,8 +90,8 @@ func (ch *Checkbox) GetCashierShift(AccessToken string) (*ShiftResp, *Error) {
 // GetCashierSignature
 //
 // Check Signature
-func (ch *Checkbox) GetCashierSignature(AccessToken string) (*CashierSignatureResp, *Error) {
-	resp := &CashierSignatureResp{}
+func (ch *Checkbox) GetCashierSignature(AccessToken string) (*CashierSignature, *Error) {
+	resp := &CashierSignature{}
 	c := ReqConfig{
 		Method:         "GET",
 		NeedLicenseKey: false,

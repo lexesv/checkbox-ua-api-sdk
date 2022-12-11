@@ -5,8 +5,8 @@ import "fmt"
 // GetCashRegistersInfo
 //
 // Отримання інформації про пРРО за ключем ліцензії. Необхідно для агенту РРО.
-func (ch *Checkbox) GetCashRegistersInfo() (*CashRegistersInfoResp, *Error) {
-	resp := &CashRegistersInfoResp{}
+func (ch *Checkbox) GetCashRegistersInfo() (*CashRegistersInfo, *Error) {
+	resp := &CashRegistersInfo{}
 	c := ReqConfig{
 		Method:         "GET",
 		NeedLicenseKey: true,
@@ -23,8 +23,8 @@ func (ch *Checkbox) GetCashRegistersInfo() (*CashRegistersInfoResp, *Error) {
 // # Отримання переліку доступних пРРО
 //
 // InUse - Чи відображати зайняті каси (1 - тільки зайняті, 2 - тільки вільні, 0 - всі)
-func (ch *Checkbox) GetCashRegisters(AccessToken string, InUse int, Limit, Offset int) (*CashRegistersResp, *Error) {
-	resp := &CashRegistersResp{}
+func (ch *Checkbox) GetCashRegisters(AccessToken string, InUse int, Limit, Offset int) (*CashRegisters, *Error) {
+	resp := &CashRegisters{}
 	in_use := ""
 	switch InUse {
 	case 1:
@@ -47,8 +47,8 @@ func (ch *Checkbox) GetCashRegisters(AccessToken string, InUse int, Limit, Offse
 // GetCashRegister
 //
 // Отримання інформації про пРРО
-func (ch *Checkbox) GetCashRegister(AccessToken string, CashRegisterId string) (*CashRegisterResp, *Error) {
-	resp := &CashRegisterResp{}
+func (ch *Checkbox) GetCashRegister(AccessToken string, CashRegisterId string) (*CashRegister, *Error) {
+	resp := &CashRegister{}
 	c := ReqConfig{
 		Method:         "GET",
 		NeedLicenseKey: false,

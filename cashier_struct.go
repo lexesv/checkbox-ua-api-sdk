@@ -2,19 +2,19 @@ package checkbox
 
 import "time"
 
-type SingInReq struct {
+type SingInPayload struct {
 	Login    string `json:"login,omitempty"`
 	Password string `json:"password,omitempty"`
 	PinCode  string `json:"pin_code,omitempty"`
 }
 
-type SignInResp struct {
+type SignIn struct {
 	Type        string `json:"type"`
 	TokenType   string `json:"token_type"`
 	AccessToken string `json:"access_token"`
 }
 
-type CashierProfileResp struct {
+type CashierProfile struct {
 	Id            string `json:"id"`
 	FullName      string `json:"full_name"`
 	Nin           string `json:"nin"`
@@ -43,7 +43,7 @@ type CashierProfileResp struct {
 	} `json:"organization"`
 }
 
-type CashierSignatureResp struct {
+type CashierSignature struct {
 	Online               bool   `json:"online"`
 	Type                 string `json:"type"`
 	ShiftOpenPossibility bool   `json:"shift_open_possibility"`

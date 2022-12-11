@@ -2,7 +2,7 @@ package checkbox
 
 import "time"
 
-type ReceiptReq struct {
+type ReceiptPayload struct {
 	Id          string `json:"id,omitempty"`
 	CashierName string `json:"cashier_name,omitempty"`
 	Departament string `json:"departament,omitempty"`
@@ -40,7 +40,7 @@ type ReceiptReq struct {
 	} `json:"custom,omitempty"`
 }
 
-type ReceiptResp struct {
+type Receipt struct {
 	Id          string `json:"id"`
 	Transaction struct {
 		Id                   string    `json:"id"`
@@ -130,8 +130,8 @@ type ReceiptResp struct {
 		Commission int    `json:"commission"`
 		Cross      int    `json:"cross"`
 	} `json:"currency_exchange"`
-	Shift         ShiftResp `json:"shift"`
-	ControlNumber string    `json:"control_number"`
+	Shift         Shift  `json:"shift"`
+	ControlNumber string `json:"control_number"`
 }
 
 type Good struct {

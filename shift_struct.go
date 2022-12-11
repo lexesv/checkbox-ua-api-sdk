@@ -3,7 +3,7 @@ package checkbox
 import "time"
 
 /*
-ShiftResp
+Shift
 "id" - унікальний ідентифікатор зміни у форматі UUID
 "serial" - порядковий номер зміни
 "status" - статус зміни. Може мати значення CREATED/OPENED/CLOSING/CLOSED (СТВОРЕНА/ВІДКРИТА/ЗАКРИВАЄТЬСЯ/ЗАКРИТА)
@@ -68,7 +68,7 @@ ShiftResp
 "certificate_end" - дата завершення строку дії ЕЦП касира у форматі ISO 8601 за шаблоном YYYY-MM-DDThh:mm:ss.ssssss±hh:mm
 "blocked" - інформація про стан блокування касира. У випадку, якщо транзакційний процесінг отримає помилку при підписанні транзакції, пов'язану із блокуванням ЕЦП касира, в даному полі буде записано цю помилку.
 */
-type ShiftResp struct {
+type Shift struct {
 	Id      string `json:"id"`
 	Serial  int    `json:"serial"`
 	Status  string `json:"status,omitempty"`
@@ -203,15 +203,15 @@ type ShiftResp struct {
 	} `json:"cashier,omitempty"`
 }
 
-type ShiftsResp struct {
+type Shifts struct {
 	Meta struct {
 		Limit  int `json:"limit"`
 		Offset int `json:"offset"`
 	} `json:"meta"`
-	Results []ShiftResp `json:"results"`
+	Results []Shift `json:"results"`
 }
 
-type CloseShiftReq struct {
+type CloseShiftPayload struct {
 	SkipClientNameCheck bool `json:"skip_client_name_check"`
 	Report              struct {
 		Id                          string           `json:"id"`

@@ -13,7 +13,7 @@ package checkbox
 // PayType: форма оплати "CASH" "CARD" "CASHLESS"
 //
 // PayVal: Оплата в копійках
-func (ch *Checkbox) NewSimpleReceipt(Code, Name string, Price, Quantity int, PayType string, PayVal int) *ReceiptReq {
+func (ch *Checkbox) NewSimpleReceipt(Code, Name string, Price, Quantity int, PayType string, PayVal int) *ReceiptPayload {
 	var goods []Good
 	good := Good{}
 	good.Good.Code = Code
@@ -27,7 +27,7 @@ func (ch *Checkbox) NewSimpleReceipt(Code, Name string, Price, Quantity int, Pay
 		Value: PayVal,
 	}
 	payments = append(payments, payment)
-	return &ReceiptReq{
+	return &ReceiptPayload{
 		Goods:    goods,
 		Payments: payments,
 	}
@@ -36,8 +36,8 @@ func (ch *Checkbox) NewSimpleReceipt(Code, Name string, Price, Quantity int, Pay
 // CreateReceipt
 //
 // Створення чеку продажу/повернення, його фіскалізація та доставка клієнту по email.
-func (ch *Checkbox) CreateReceipt(AccessToken string, req *ReceiptReq) (resp *ReceiptResp, err *Error) {
-	resp = &ReceiptResp{}
+func (ch *Checkbox) CreateReceipt(AccessToken string, req *ReceiptPayload) (resp *Receipt, err *Error) {
+	resp = &Receipt{}
 	c := ReqConfig{
 		Method:         "POST",
 		NeedLicenseKey: false,
